@@ -1,16 +1,16 @@
 import {Router} from 'express'
-import { confirmarMail, registro } from '../controllers/veterinario_controllers.js'
+import { comprobarTokenPassword, confirmarMail, crearNuevoPassword, recuperarPassword, registro } from '../controllers/veterinario_controllers.js'
 const router = Router()
 
 router.post('/registro',registro)
 
-router.get('/confirmar/token:token',confirmarMail)
+router.get('/confirmar/:token',confirmarMail)
 
 //insercion de datos
 router.post ('/recuperarpassword', recuperarPassword)
 //leer token
 router.get ('/recuperarpassword/:token', comprobarTokenPassword)
 
-router.post('/nuevopassword',crearNuevoPassword)
+router.post('/nuevopassword/:token',crearNuevoPassword)
 
 export default router
