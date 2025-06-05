@@ -1,16 +1,16 @@
-import axios from 'axios';
+                        import axios from 'axios';
 
 import {toast} from 'react-toastify';
 
 function useFetch(){
-    const fetchDataBackend = (url, form = null, method = 'POST') => {
+    const fetchDataBackend = async (url, form = null, method = 'POST') => {
         try {
             let respuesta
             if (method === 'POST') {
-                respuesta = axios.post(url,form)
+                respuesta = await axios.post(url,form)
             }
             else if(method === 'GET'){
-                respuesta = axios.get(url) 
+                respuesta = await axios.get(url) 
             }
             toast.success(respuesta?.data?.msg)
             return respuesta?.data

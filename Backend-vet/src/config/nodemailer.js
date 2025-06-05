@@ -43,7 +43,7 @@ const sendMailToRecoveryPassword = async(userMail,token)=>{
     html: `
     <h1>SmartVET - 🐶 😺</h1>
     <hr>
-    <a href=${process.env.URL_BACKEND}recuperarpassword/${token}>Clic para reestablecer tu contraseña</a>
+    <a href=${process.env.URL_FRONTEND}reset/${token}>Clic para reestablecer tu contraseña</a>
     <hr>
     <footer>El equipo de SmartVET te da la más cordial bienvenida.</footer>
     `

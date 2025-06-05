@@ -11,7 +11,7 @@ const registro = async (req, res) => {
   }
 
   const verificarEmailBDD = await Veterinario.findOne({ email });
-
+  
   if (verificarEmailBDD) {
     return res
       .status(400)
@@ -19,13 +19,9 @@ const registro = async (req, res) => {
   }
 
   const nuevoVeterinario = new Veterinario(req.body);
-
   nuevoVeterinario.password = await nuevoVeterinario.encrypPassword(password);
-
-  const token = nuevoVeterinario.createToken();
-
+  const token =  await nuevoVeterinario.createToken();
   sendMailToRegister(email, token);
-
   await nuevoVeterinario.save();
 
   res
