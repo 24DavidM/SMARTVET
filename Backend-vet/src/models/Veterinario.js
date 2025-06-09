@@ -62,7 +62,7 @@ veterinarioSchema.methods.encrypPassword = async function(password){
 
 //metodo para comprobar si el password es el mismo que en bd
 veterinarioSchema.methods.matchPassword = async function (password) {
-    const response = await bcrpt.compareSync(password, this.password)
+    const response =  bcrpt.compareSync(password, this.password)
     return response
 }
 

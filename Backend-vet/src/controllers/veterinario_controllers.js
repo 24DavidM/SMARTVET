@@ -117,10 +117,36 @@ const crearNuevoPassword = async (req, res) => {
     });
 };
 
+const login = async (req,res) =>{
+  const {email, password} = req.body
+
+  if (Object.values(req.body).includes("")) return res.status(400).json({msg:"Lo sentimos debes llenar todo los campos"});
+
+  const veterinarioBDD = await Veterinario.findOne({email}).select("-status -__v -updatedAt -createdAt")
+
+  if(veterinarioBDD?.confirmEmail === false) return res.status(403).json({msg:"Lo setimos debes confirmar tu cuenta antes de iniciar sesión"})
+
+  if(!veterinarioBDD) return res.status(404).json({msg:"Lo sentimos el usuario no se encuentra registrado"});
+
+  const verificarPassword = await veterinarioBDD.matchPassword(password)
+  if(!verificarPassword) return res.status(401).json({msg:"Lo sentimos el password es incorrecto"})
+
+  const {nombre,apellido,direccion,telefono,_id,rol} = veterinarioBDD
+
+  res.status(200).json({
+    rol,
+    nombre,
+    apellido,
+    direccion,
+    telefono,
+    _id
+  })
+}
 export {
   registro,
   confirmarMail,
   recuperarPassword,
   comprobarTokenPassword,
   crearNuevoPassword,
+  login
 };
