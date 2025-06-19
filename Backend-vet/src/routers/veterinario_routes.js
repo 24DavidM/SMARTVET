@@ -14,4 +14,5 @@ router.get ('/recuperarpassword/:token', comprobarTokenPassword)
 router.post('/nuevopassword/:token',crearNuevoPassword)
 
 router.post('/login', login)
+
 export default router
