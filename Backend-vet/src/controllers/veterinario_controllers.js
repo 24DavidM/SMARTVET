@@ -1,4 +1,5 @@
 import { sendMailToRecoveryPassword, sendMailToRegister } from "../config/nodemailer.js";
+import { createTokeJWT } from "../middlewares/JWT.js";
 import Veterinario from "../models/Veterinario.js";
 
 const registro = async (req, res) => {
@@ -133,7 +134,10 @@ const login = async (req,res) =>{
 
   const {nombre,apellido,direccion,telefono,_id,rol} = veterinarioBDD
 
+  const token = createTokeJWT(veterinarioBDD._id,veterinarioBDD.rol)
+
   res.status(200).json({
+    token,
     rol,
     nombre,
     apellido,
@@ -142,11 +146,19 @@ const login = async (req,res) =>{
     _id
   })
 }
+
+const perfil = (req,res) =>{
+
+  
+  res.send("Perfil Veterinario")
+
+}
 export {
   registro,
   confirmarMail,
   recuperarPassword,
   comprobarTokenPassword,
   crearNuevoPassword,
-  login
+  login,
+  perfil
 };

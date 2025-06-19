@@ -3,16 +3,19 @@ import { Link, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import useFetch from "../hooks/useFetch";
 import { ToastContainer } from 'react-toastify';
+import storeAuth from "../context/storeAuth";
 
 
 const Login = () => {
 
     const [showPassword, setShowPassword] = useState(false);
-    
+    const {setToken, setRol} = storeAuth()
     const loginUser = async (data) => {
         console.log(data)
         const url = `${import.meta.env.VITE_BACKEND_URL}/login`
         const response = await fetchDataBackend(url, data, 'POST')
+        setToken(response.token)
+        setRol(response.rol)
         if (response) {
             navigate('/dashboard')
         }
