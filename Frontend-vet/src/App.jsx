@@ -15,8 +15,19 @@ import Reset from "./pages/Reset";
 import ProtectRoute from "./routes/ProtectedRouter";
 import PublicRoute from "./routes/PublicRouter";
 import { Home } from "./pages/Home";
+import storProfile from "./context/storeProfile";
+import { useEffect } from "react";
+import storeAuth from "./context/storeAuth";
 
 function App() {
+  const{profile} = storProfile()
+  const {token} = storeAuth()
+  useEffect(()=>{
+    if(token){
+      profile()
+    }
+  }, [token])
+
   return (
     <BrowserRouter>
       <Routes>

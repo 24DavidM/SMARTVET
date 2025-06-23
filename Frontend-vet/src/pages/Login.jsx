@@ -11,7 +11,6 @@ const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const {setToken, setRol} = storeAuth()
     const loginUser = async (data) => {
-        console.log(data)
         const url = `${import.meta.env.VITE_BACKEND_URL}/login`
         const response = await fetchDataBackend(url, data, 'POST')
         setToken(response.token)

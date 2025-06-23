@@ -8,7 +8,7 @@ const storeAuth = create(
             rol: null,
             setToken: (token) => set({ token }),
             setRol: (rol) => set({ rol }),
-            clearToken: () => set({ token: null }),
+            clearToken: () => set({ token: null}),
         }),
         { name: "auth-token" }
     )

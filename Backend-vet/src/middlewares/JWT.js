@@ -12,7 +12,6 @@ const verifyTokenJWT = async (req, res, next) => {
     if (!authorization) return res.status(401).json({msg:"Token no proporcionado"});
     try{
         const token = authorization.split(' ')[1]
-        console.log(token)
 
         const {id,rol} = jwt.verify(token,process.env.JWT_SECRET)
 

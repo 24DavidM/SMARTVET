@@ -148,11 +148,12 @@ const login = async (req,res) =>{
 }
 
 const perfil = (req,res) =>{
+  const {token,confirmEmail,createdAt, updatedAt,__v,...datosPerfil} = req.veterinarioBDD
+  res.status(200).json(datosPerfil)
 
-  
-  res.send("Perfil Veterinario")
 
 }
+
 export {
   registro,
   confirmarMail,
