@@ -1,5 +1,5 @@
 import {Router} from 'express'
-import { comprobarTokenPassword, confirmarMail, crearNuevoPassword, login, perfil, recuperarPassword, registro } from '../controllers/veterinario_controllers.js'
+import { actualizarperfil, comprobarTokenPassword, confirmarMail, crearNuevoPassword, login, perfil, recuperarPassword, registro } from '../controllers/veterinario_controllers.js'
 import { verifyTokenJWT } from '../middlewares/JWT.js'
 const router = Router()
 
@@ -18,4 +18,6 @@ router.post('/nuevopassword/:token',crearNuevoPassword)
 router.post('/login', login)
 
 router.get('/perfil', verifyTokenJWT,perfil)
+router.put('/veterinario/:id',verifyTokenJWT,actualizarperfil)
+
 export default router

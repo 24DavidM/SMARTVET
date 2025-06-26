@@ -1,7 +1,7 @@
+import storProfile from "../../context/storeProfile"
 
 const FormularioPerfil = () => {
-
-
+    
     return (
         <form >
             <div>
