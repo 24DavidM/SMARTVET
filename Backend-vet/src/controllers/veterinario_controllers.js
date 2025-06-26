@@ -94,6 +94,7 @@ const crearNuevoPassword = async (req, res) => {
   const { password, confirmPassword } = req.body;
   if (Object.values(req.body).includes(""))
     return res
+  
       .status(404)
       .json({ msg: "Lo sentimos debes llenar todo los datos" })
 
