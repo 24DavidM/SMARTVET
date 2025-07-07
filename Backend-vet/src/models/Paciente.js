@@ -1,97 +1,101 @@
-import mongoose, { Schema, model } from "mongoose";
-import bcrpt from 'bcryptjs';
-import Veterinario from "./Veterinario";
+import mongoose, {Schema,model} from 'mongoose'
+import bcrypt from "bcryptjs"
 
 const pacienteSchema = new Schema({
-    nombrePropietario: {
-        type: String,
-        required: true,
-        trim: true
+    nombrePropietario:{
+        type:String,
+        required:true,
+        trim:true
     },
-    cedulaPropietario: {
-        type: String,
-        required: true,
-        trim: true
+    cedulaPropietario:{
+        type:String,
+        required:true,
+        trim:true
     },
-    emailPropietario: {
-        type: String,
-        required: true,
-        trim: true,
+    emailPropietario:{
+        type:String,
+        required:true,
+        trim:true,
         unique: true
     },
-    passwordPropietario: {
-        type: String,
-        required: true,
+    passwordPropietario:{
+        type:String,
+        required:true
     },
-    celularPropietario: {
-        type: String,
-        required: true,
-        trim: true
+    celularPropietario:{
+        type:String,
+        required:true,
+        trim:true
     },
-    nombreMascota: {
-        type: String,
-        required: true,
-        trim: true
+    nombreMascota:{
+        type:String,
+        required:true,
+        trim:true
     },
-    avatarMascota: {
-        type: String,
-        trim: true
+    avatarMascota:{
+        type:String,
+        trim:true
     },
-    avatarMascotaIA: {
-        type: String,
-        trim: true
+    avatarMascotaID:{
+        type:String,
+        trim:true
     },
-    tipoMascota: {
-        type: String,
-        required: true,
-        trim: true
+    avatarMascotaIA:{
+        type:String,
+        trim:true
     },
-    fechaNacimientoMascota: {
-        type: Date,
-        required: true,
-        trim: true
+    tipoMascota:{
+        type:String,
+        required:true,
+        trim:true
     },
-    SintomasMascota: {
-        type: String,
-        required: true,
-        trim: true
+    fechaNacimientoMascota:{
+        type:Date,
+        required:true,
+        trim:true
     },
-    fechaIngresoMascota: {
-        type: Date,
-        required: true,
-        trim: true,
-        default: Date.now
+    sintomasMascota:{
+        type:String,
+        required:true,
+        trim:true
     },
-    salidaMascota: {
-        type: Date,
-        required: true,
-        trim: true,
-        default: null
+    fechaIngresoMascota:{
+        type:Date,
+        required:true,
+        trim:true,
+        default:Date.now
     },
-    estadoMascota: {
-        type: Boolean,
-        default: true
+    salidaMascota:{
+        type:Date,
+        trim:true,
+        default:null
     },
-    rol: {
-        type: String,
-        default: "paciente"
+    estadoMascota:{
+        type:Boolean,
+        default:true
+    },
+    rol:{
+        type:String,
+        default:"paciente"
     },
     veterinario:{
-        type:mongoose.Schema.Types.ObjectId,ref:'Veterinario'
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Veterinario'
     }
-
 },{
-    timestamps:true 
+    timestamps:true
 })
 
-//metodo para cifrar el password del dueño del paciente
+
+// Método para cifrar el password del propietario
 pacienteSchema.methods.encrypPassword = async function(password){
-    const salt = await bcrpt.genSalt(10) //variable para generar saltos
-    return bcrpt.hash(password,salt)
+    const salt = await bcrypt.genSalt(10)
+    return bcrypt.hash(password, salt)
 }
 
-//metodo para comprobar si el password es el mismo que en bd
-pacienteSchema.methods.matchPassword = function (password) {
-    return bcrpt.compareSync(password, this.passwordPropietario)
+// Método para verificar si el password ingresado es el mismo de la BDD
+pacienteSchema.methods.matchPassword = async function(password){
+    return bcrypt.compare(password, this.passwordPropietario)
 }
-export default model('Paciente', pacienteSchema);
+
+export default model('Paciente',pacienteSchema)
